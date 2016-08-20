@@ -1,7 +1,7 @@
 xyzrbt.headphones
 =========
 
-Installs Headphones.
+Installs headphones[https://github.com/rembo10/headphones].
 
 Requirements
 ------------
@@ -29,10 +29,8 @@ Example Playbook
 
 License
 -------
-
 GPLv2
 
 Author Information
 ------------------
-
 Casts a fat shadow.
