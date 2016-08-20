@@ -1,7 +1,7 @@
 xyzrbt.headphones
 =========
 
-Installs headphones[https://github.com/rembo10/headphones].
+Installs headphones [https://github.com/rembo10/headphones].
 
 Requirements
 ------------
