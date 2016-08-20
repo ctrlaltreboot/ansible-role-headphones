@@ -1,0 +1,56 @@
+---
+- name: Clone headphones
+  git:
+    repo: https://github.com/rembo10/headphones.git
+    dest: /opt/headphones
+    accept_hostkey: yes
+
+- name: Create headphones user
+  user: name=headphones state=present
+
+- name: Create config directory
+  file:
+    path: /etc/headphones
+    state: directory
+    owner: headphones
+    group: headphones
+    mode: 0755
+
+- name: Touch config files
+  file:
+    path: /etc/headphones/headphones.ini
+    state: touch
+    owner: headphones
+    group: headphones
+    mode: 0755
+
+- name: Copy systemd unit
+  synchronize:
+    src: files/headphones.service
+    dest: /etc/systemd/system/headphones.service
+  delegate_to: "{{ inventory_hostname }}"
+  tags: ['systemd']
+
+- name: Firewalld config
+  firewalld:
+    port: 8080
+    permanent: true
+    immediate: true
+    state: enabled
+  ignore_errors: yes
+
+- name: Pwn headphones
+  file:
+    path: /opt/headphones
+    owner: headphones
+    group: headphones
+    mode: 0755
+    recurse: yes
+    state: directory
+
+- name: Reload systemd
+  command: /usr/bin/systemctl daemon-reload
+
+- name: Start and enable headphones
+  service: name=headphones enabled=yes state=started
+
