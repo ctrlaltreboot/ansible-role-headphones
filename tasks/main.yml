@@ -25,10 +25,10 @@
     mode: 0755
 
 - name: Copy systemd unit
-  synchronize:
+  copy:
     src: headphones.service
     dest: /etc/systemd/system/headphones.service
-  delegate_to: "{{ inventory_hostname }}"
+    mode: 0755
   tags: ['systemd']
 
 - name: Firewalld config
@@ -53,4 +53,3 @@
 
 - name: Start and enable headphones
   service: name=headphones enabled=yes state=started
-
